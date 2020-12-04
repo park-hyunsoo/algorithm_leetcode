@@ -1,0 +1,34 @@
+# 그래프는 딕셔너리를 사용해서 노드를 키로 그리고 인접한 노드를 값으로 만들 수 있다.
+# DFS는 재귀와 스택으로 구현이 가능하며
+# 재귀의 경우와 스택의 경우의 순서가 다름
+# 동작의 경우 방문한 노드를 저장하고
+# 새로운 노드 방문 시 방문 여부를 판단
+# 노드를 이동하는 것에 대해 재귀냐 스택이냐가 다름
+
+graph = {
+  1: [2, 3, 4],
+  2: [5],
+  3: [5],
+  4: [],
+  5: [6, 7],
+  6: [],
+  7: [3]
+}
+
+def recursive_dfs(v, discovered=[]):
+    discovered.append(v)
+    for w in graph[v]:
+        if not w in discovered:
+            discovered = recursive_dfs(w, discovered)
+    return discovered
+
+def iterative_dfs(start_v):
+    discovered = []
+    stack = [start_v]
+    while stack:
+        v = stack.pop()
+        if v not in discovered:
+            discovered.append(v)
+            for w in graph[v]:
+                stack.append(w)
+    return discovered
