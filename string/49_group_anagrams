@@ -1,0 +1,14 @@
+# 애너그램 문제
+# 문자열을 문자로 쪼개서 정렬 한 후 합치면 같은 문자열을 찾을 수 있고
+# 이를 키로해서 해당 문자열을 저장하면 된다.
+# sorted() 를 문자열에 사용하면 문자들을 정렬한 리스트를 반환
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        
+        anagrams = collections.defaultdict(list)
+        
+        for word in strs:
+            anagrams[''.join(sorted(word))].append(word)
+            
+        return anagrams.values()
