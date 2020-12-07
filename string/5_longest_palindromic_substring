@@ -1,0 +1,28 @@
+# 부분 회문 구하기 문제
+# babab 같은 문자열이 있을때 
+# 첫번째 a를 기준으로 양옆이 동일한지 비교하면 된다.
+# 즉 중앙 값을 기준으로 확장해 나가는 형식
+
+# cbbd 같은 경우는 중앙점을 기준으로 나아가면 회문을 구할수 없고
+# bb 를 기준으로 양옆이 동일한지 비교하면 된다.
+# 즉 중앙값이 짝수일 때를 기준으로 확장해 나가면 된다.
+
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def expand(left: int, right: int) -> str:
+            while left >= 0 and right <= len(s) and s[left] == s[right-1]:
+                left -= 1
+                right += 1
+            
+            return s[left + 1: right -1]
+        
+        if len(s) < 2 or s == s[::-1]:
+            return s
+        
+        result = ''
+        for i in range(0, len(s)-1):
+            result = max(result,
+                         expand(i, i + 1),
+                         expand(i, i + 2),
+                        key=len)
+        return result
