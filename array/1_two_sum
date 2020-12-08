@@ -31,3 +31,20 @@ class Solution:
             if target - num in nums_map:
                 return [numps_map[target-num], i]
             nums_map[num]=i
+
+# 투 포인트 사용
+# 간결 및 가독성이 좋지만 문제는 입력 값이 정렬되어 있어야 함
+# 값을 구하는 경우는 문제 없지만 인덱스를 구하는 문제에서는 사용 불가 
+
+class Solution: 
+    def twoSum(self, nums: List[int], target: int) -> List[int]: 
+        left, right = 0, len(nums) - 1
+        
+        while not left == right:
+            if nums[left] + nums[right] < target:
+                left += 1
+            elif nums[left] + nums[right] > target:
+                right -= 1
+                
+            else:
+                return left, right
