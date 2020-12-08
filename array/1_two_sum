@@ -17,3 +17,17 @@ class Solution:
              
             if complement in nums[i+1:]: 
                 return nums.index(n), nums[i+1:].index(complement)+(i+1)
+
+# 해시를 이용
+# 위의 in 연산에 대한 시간 복잡도를 개선
+# 매번 in으로 찾는 것이 아니라 해시를 저장하므로 탐색 속도가 빨라짐
+# 해시에는 값을 키로 인덱스를 값으로 저장
+
+class Solution: 
+    def twoSum(self, nums: List[int], target: int) -> List[int]: 
+        nums_map = {}
+        
+        for i, num in enumerate(nums):
+            if target - num in nums_map:
+                return [numps_map[target-num], i]
+            nums_map[num]=i
