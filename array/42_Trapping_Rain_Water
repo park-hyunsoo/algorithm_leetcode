@@ -1,0 +1,26 @@
+# 리스트 원소 간의 차이를 이용한 문제
+# 스택을 이용해서 값을 저장하고
+# 스택의 값과 리스트 원소의 값을 비교해서 더 큰 값이 나오면 경계를 이룸
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        stack = []
+        volume = 0
+        
+        for i in range(len(height)):
+            while stack and height[i] > height[stack[-1]]:
+                top = stack.pop()
+                
+                if not len(stack):
+                    break
+                
+                # [1, 0, 0, 2] 처럼 연달아서 나오는 경우를 위해 거리를 계산
+                distance = i - stack[-1] -1
+                
+                # 물 높이 차이 계산
+                waters = min(height[i], height[stack[-1]]) - height[top]
+                volume += distance * waters
+            
+            stack.append(i)
+            
+        return volume
