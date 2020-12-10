@@ -1,0 +1,64 @@
+# 배열 내 3 원소의 합이 0 이 되는 모든 원소 찾기
+
+
+# 브루트 포스로 모든 경우 계산
+# 인덱스는 상관 없으므로 계산하기 편하게 하기 위해 정렬
+# 중복된 값이 있을 수 있으므로 이를 배제
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        results=[]
+        nums.sort()
+        
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+
+            for j in range(i+1, len(nums) - 1):
+                if j > i + 1 and nums[j] == nums[j-1]:
+                    continue                    
+                    
+                for k in range(j+1, len(nums)):
+                    if k > j+1 and nums[k] == nums[k-1]:
+                        continue
+                            
+                    if nums[i] + nums[j] + nums[k]==0:
+                        results.append((nums[i], nums[j], nums[k]))
+                            
+        return results
+        
+        
+# 투 포인트로 계산
+# 더해서 0이 된다는 것은 음수와 양수가 섞여 있는 것이고
+# 이를 정렬 했으므로 
+# i를 기준으로 시작을 left 마지막을 right로 해서 
+# 합이 0보다 작거나 클때 두 개의 포인터를 이동
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        results=[]
+        nums.sort()
+        
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i-1]:
+                continue
+
+            left, right = i + 1, len(nums) - 1
+            while left < right:
+                sum = nums[i] + nums[left] + nums[right]
+                
+                if sum < 0:
+                    left += 1
+                elif sum > 0:
+                    right -= 1
+                else:
+                    results.append((nums[i], nums[left], nums[right]))
+                    
+                    while left < right and nums[left] == nums[left+1]:
+                        left += 1
+                    while left < right and nums [right] == nums[right -1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+                            
+        return results
