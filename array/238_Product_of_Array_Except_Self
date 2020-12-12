@@ -1,0 +1,23 @@
+# 배열에서 자기 자신을 제외한 나머지 요소의 곱을 구하여라
+# 가장 쉬운 방법은 모두 곱하고 자신을 나누기만 하면 되는데 
+# 나눗셈을 하지 말고 O(n)에 풀라고 명시
+
+# 예를들어 [4, 5, 1, 8, 2] 에 대해서
+# 왼쪽을 곱해 나가면 [1, 4, 20, 20, 160] => [1, 4*, 4*5, 4*5*1, 4*5*1*8] 가 되고
+# 오른쪽을 곱해 나가면 [80, 16, 16, 2, 1] => [5*1*8*2* ,1*8*2, ,8*2*, 2*, 1] 이 두개를 곱하면 자신을 제외한 곱이 된다.
+
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        out = []
+        p = 1
+     
+        for i in range(0, len(nums)):
+            out.append(p)            
+            p = p*nums[i]
+            
+        p = 1
+        for i in range(len(nums) -1, -1, -1):
+            out[i] = out[i] * p
+            p = p*nums[i]
+            
+        return out
