@@ -1,0 +1,50 @@
+# 팰린드롬 구하기
+# class ListNode: 
+#     def __init__(self, val=0, next=None): 
+#         self.val = val 
+#         self.next = next 
+
+# 연결리스트를 데크를 사용해서 새로운 자료구조로 저장하고 앞과 뒤를 비교
+
+class Solution: 
+    def isPalindrome(self, head: ListNode) -> bool: 
+        q: Deque = collections.deque() 
+         
+        if not head: 
+            return True 
+         
+        node = head 
+         
+        while node is not None: 
+            q.append(node.val) 
+            node = node.next 
+             
+        while len(q) > 1: 
+            if q.popleft() != q.pop(): 
+                return False 
+             
+        return True
+        
+# 런너를 사용하는 방법으로
+# 빠른 런너와 느린 런너를 사용해서
+# 역순의 리스트를 절반까지 만들고
+# 절반까지 이동한 리스트와 역순의 리스트 값을 비교 
+
+class Solution:
+    def isPalindrome(self, head: ListNode) -> bool:
+        rev = None
+        slow = fast = head
+        
+        # 역순 연결 리스트 
+        while fast and fast.next:
+            fast = fast.next.next
+            rev, rev.next, slow = slow, rev, slow.next
+            
+        if fast:
+            slow = slow.next
+            
+        # 팰린드롬 확인
+        while rev and rev.val == slow.val:
+            slow, rev = slow.next, rev.next
+            
+        return not rev
