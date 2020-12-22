@@ -1,0 +1,29 @@
+# 연결 리스트 페어 스왑
+# 반복문을 사용하는 경우는 현재 노드에 다음 노드의 다음을 연결하고 
+# 다음 노드에는 현재 노드를 연결하면 된다.
+# 현재 노드의 이전에 다음 노드를 연결하기 위해 이전 노드도 기억하고 있어야 한다.
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        root = prev = ListNode(None)
+        prev.next = head
+        
+        while head and head.next:
+            tmp = head.next 
+            head.next = tmp.next 
+            tmp.next = head   
+            prev.next = tmp
+            
+            head = head.next  
+            prev = prev.next.next 
+            
+        return root.next
+        
+# 재귀를 사용하는 경우는 뒤에서 부터 스왑이 되므로 이전 노드를 기억할 필요가 없다.
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode: 
+        if head and head.next:
+            p = head.next    
+            head.next = self.swapPairs(p.next) 
+            p.next = head 
+            return p 
+        return head
