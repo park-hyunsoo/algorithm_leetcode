@@ -1,0 +1,12 @@
+# 주식을 여러번 사고 팔때 가장 큰 이익을
+# 저점일때 사고 고점일때 팔면 된다.
+# 값이 오르면 팔고 내리면 산다. 
+# 현재보다 다음이 더 크다면 팔면된다. 
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        result = 0
+        for i in range(len(prices) -1):
+            if prices[i+1]>prices[i]:
+                result += prices[i+1] - prices[i]
+        return result
