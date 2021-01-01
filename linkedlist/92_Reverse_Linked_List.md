@@ -32,7 +32,6 @@ class Solution:
         end = start.next
         
         for _ in range(n - m):
-            print(end.val)
             tmp = start.next # 역순으로 정렬되므로 임시 저장  
             start.next = end.next # 기준 점의 다음은 그 다음을 가리켜야 되고 
             end.next = end.next.next # 다음점의 다음은 그 다음을 가리켜야 된다.  
