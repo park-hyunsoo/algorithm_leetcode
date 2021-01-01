@@ -1,5 +1,5 @@
-# Stack의 ADT 구현
-# Stack의 기본이 되는 push, pop 연결리스트로 구현
+### Stack의 ADT 구현
+- Stack의 기본이 되는 push, pop 연결리스트로 구현
 
 ```
 class Node:
